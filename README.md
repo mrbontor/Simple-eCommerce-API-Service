@@ -28,7 +28,9 @@ This is a simple e-commerce service, but its functionality is powerful.
 This Project use `modular system`, `Functional Programming (FP)` and `Object Oriented programming (OOP)`
 The `OOP` only implemented to handle [Response Exeception](https://developer.mozilla.org/en-US/docs/Web/HTTP/Status), the rest in using `FP`
 
-I also implements [SOLID Prinsiple](https://medium.com/mindorks/solid-principles-explained-with-examples-79d1ce114ace), but mostly using for
+I also implements [SOLID Prinsiple](https://medium.com/mindorks/solid-principles-explained-with-examples-79d1ce114ace),
+but mostly using for:
+
 -`S (Single-Responsibilty)` _Good_,
 -`O (Open-Closed)` _Good enough_,
 -`D (Dependency Inversion)`  _Good enough_,
@@ -89,8 +91,8 @@ and each `modules` have `responsibilty` base on `folder name`
 
 Before running application, please take a look the file `env.example` and change to `.env`
 
-Noted: This project using [Docker](`./Dockerfile`) and [Docker Compose](`./docker-compose.yml`),
-if you want to run without `Docker`, you have to change the _Configuration_ `[host](./.env-example)` for `mysql` and `redis`
+Noted: This project using [Docker](/Dockerfile) and [Docker Compose](/docker-compose.yml),
+if you want to run without `Docker`, you have to change the _Configuration_ [host](.env-example) for `mysql` and `redis`
 
 ```env
 NODE_ENV             = development
@@ -197,6 +199,7 @@ $ npm test
 Please follow this [Postman Doc Import Api](https://learning.postman.com/docs/designing-and-developing-your-api/importing-an-api/) for better information
 
 The `Postman file` also included `documentation`, `environtment` and `Examples responses` for each cases
+
 You just need to `import` the file.
 
 
