@@ -1,0 +1,78 @@
+version: "3.8"
+
+networks:
+    default:
+        external: true
+        name: k-link-dev
+
+services:
+    mysqldb:
+        image: mysql:5.7
+        container_name: mysqldb
+        restart: always
+        env_file: .env
+        environment:
+            - MYSQL_ROOT_PASSWORD=$MYSQLDB_ROOT_PASSWORD
+            - MYSQL_DATABASE=$MYSQLDB_DATABASE
+        ports:
+            - $MYSQLDB_PORT:$MYSQLDB_PORT
+        volumes:
+            - db:/var/lib/mysql
+            # - ./database/init.sql:/docker-entrypoint-initdb.d/init.sql
+        # healthcheck:
+        #     test: "mysql -uroot -p$MYSQLDB_ROOT_PASSWORD $MYSQLDB_DATABASE -e 'select 1'"
+        #     interval: 20s
+        #     timeout: 10s
+        #     retries: 5
+    redis:
+        image: redis:6.2-alpine
+        container_name: redis
+        restart: always
+        ports:
+            - $REDIS_PORT:$REDIS_PORT
+        command: redis-server --save 20 1 --loglevel warning --requirepass $REDIS_PASSWORD
+        volumes:
+            - redis_data:/data:rw
+        # healthcheck:
+        #     test: ["CMD-SHELL", "redis-cli ping | grep PONG"]
+        #     interval: 1s
+        #     timeout: 3s
+        #     retries: 5
+    # redis:
+    #     build:
+    #         context: ./redis
+    #     # image: myredis
+    #     privileged: true
+    #     command: sh -c "./init.sh"
+    #     volumes:
+    #         - redis_data:/data:rw
+    #     ports:
+    #         - $REDIS_PORT:$REDIS_PORT
+
+    app:
+        depends_on:
+            - redis
+            - mysqldb
+            # mysqldb:
+            #     condition: service_healthy
+        build: .
+        container_name: ecommerce-api
+        restart: always
+        env_file: .env
+        environment:
+            - MYSQL_HOST=$DB_HOSTNAME
+            - MYSQL_USER=$DB_USERNAME
+            - MYSQL_PASSWORD=$DB_PASSWORD
+            - MYSQL_NAME=$DB_DATABASE
+            - MYSQL_PORT=$DB_PORT
+            - REDIS_HOSTNAME=$REDIS_HOSTNAME
+            - REDIS_PORT=$REDIS_PORT
+            - REDIS_PASSWORD=$REDIS_PASSWORD
+        ports:
+            - $APP_PORT:$APP_PORT
+        stdin_open: true
+        tty: true
+
+volumes:
+    db:
+    redis_data:

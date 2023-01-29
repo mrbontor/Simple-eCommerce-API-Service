@@ -1,0 +1,62 @@
+version: "3.8"
+
+services:
+    app:
+        depends_on:
+            - redis
+            - mysqldb
+        build: .
+        container_name: ecommerce-api
+        restart: always
+        env_file: .env
+        environment:
+            - MYSQL_HOST=$DB_HOSTNAME
+            - MYSQL_USER=$DB_USERNAME
+            - MYSQL_PASSWORD=$DB_PASSWORD
+            - MYSQL_NAME=$DB_DATABASE
+            - MYSQL_PORT=$DB_PORT
+            - REDIS_HOSTNAME=$REDIS_HOSTNAME
+            - REDIS_PORT=$REDIS_PORT
+            - REDIS_PASSWORD=$REDIS_PASSWORD
+        ports:
+            - $APP_PORT:$APP_PORT
+        # command: ["./wait-for-it.sh", "$MYSQLDB_HOST:$MYSQLDB_ROOT_PASSWORD", "--", "npm", "start"]
+        stdin_open: true
+        tty: true
+
+    mysqldb:
+        image: mysql:5.7
+        container_name: mysqldb
+        restart: always
+        env_file: .env
+        environment:
+            - MYSQL_ROOT_PASSWORD=$MYSQLDB_ROOT_PASSWORD
+            - MYSQL_DATABASE=$MYSQLDB_DATABASE
+        ports:
+            - $MYSQLDB_PORT:$MYSQLDB_PORT
+        volumes:
+            - ./db/mysql_data:/var/lib/mysql:rw
+            - ./db/data.sql:/docker-entrypoint-initdb.d/data.sql:ro
+        # entrypoint: [ "bash", "-c", "sleep 10 && mysql --user=$MYSQLDB_USER --user=$MYSQLDB_ROOT_PASSWORD --host=$MYSQLDB_HOST  --port=$MYSQLDB_PORT $MYSQLDB_DATABASE < ./data.sql && exit"]
+
+    redis:
+        image: redis:6.2-alpine
+        container_name: redis
+        restart: always
+        ports:
+            - $REDIS_PORT:$REDIS_PORT
+        command: redis-server --save 20 1 --loglevel warning
+        volumes:
+            - ./db/redis_data:/data:rw
+
+networks:
+    default:
+        external: true
+        name: k-link-dev
+
+volumes:
+    mysql_data:
+        external: true
+    redis_data:
+        external: true
+

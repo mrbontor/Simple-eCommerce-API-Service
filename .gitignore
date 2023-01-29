@@ -1,0 +1,8 @@
+**/node_modules
+**/coverage
+**.git/
+.env
+
+db/redis_data
+db/mysql_data
+db/mysql_data

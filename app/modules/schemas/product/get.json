@@ -1,0 +1,40 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "required": [],
+    "properties": {
+        "startDate": {
+            "type": "string",
+            "format": "dateShortIndo",
+            "errorMessage": {
+                "format": "Start Date must be string date with YYYY-MM-DD ",
+                "type": "Start Date must be string date"
+            }
+        },
+        "endDate": {
+            "type": "string",
+            "format": "dateShortIndo",
+            "errorMessage": {
+                "format": "End Date must be string date with YYYY-MM-DD ",
+                "type": "End Date must be string date"
+            }
+        },
+        "amountFrom": {
+            "type": "string",
+            "format": "numberString",
+            "errorMessage": {
+                "format": "Amount From must be string number",
+                "type": "Amount From must be string number"
+            }
+        },
+        "amountTo": {
+            "type": "string",
+            "format": "numberString",
+            "errorMessage": {
+                "format": "Amount To must be string number",
+                "type": "Amount To must be string number"
+            }
+        }
+    },
+    "additionalProperties": false
+}

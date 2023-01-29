@@ -1,0 +1,54 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "required": ["username", "email", "password"],
+    "properties": {
+        "username": {
+            "type": "string",
+            "format": "stringNoSpace",
+            "minLength": 4,
+            "errorMessage": {
+                "minLength": "Username should be greater than 4",
+                "format": "Username cannot use space"
+            }
+        },
+        "email": {
+            "type": "string",
+            "format": "email",
+            "minLength": 4,
+            "errorMessage": {
+                "format": "The format email doesn't look like an email",
+                "minLength": "Email should be greater than 4"
+            }
+        },
+        "password": {
+            "type": "string",
+            "minLength": 6,
+            "format": "strongPassword",
+            "errorMessage": {
+                "minLength": "Password should be greater than 6",
+                "format": "Password should be including 1 Uppercase, 1 number and 1 special character(#?!@$%^&*-)"
+            }
+        },
+        "isAdmin": {
+            "type": "boolean",
+            "default": false,
+            "errorMessage": {
+                "type": "Please select one of the options"
+            }
+        },
+        "isActive": {
+            "type": "boolean",
+            "default": true
+        }
+    },
+    "additionalProperties": false,
+    "errorMessage": {
+        "type": "The request should be an object",
+        "required": {
+            "username": "Username is required!",
+            "email": "Email is required!",
+            "password": "Password is required!"
+        }
+    }
+}

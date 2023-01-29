@@ -1,0 +1,28 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "required": ["quantity", "price"],
+    "properties": {
+        "quantity": {
+            "type": "number",
+            "errorMessage": {
+                "type": "Quantity must be number"
+            }
+        },
+        "price": {
+            "type": "number",
+            "default": 0,
+            "errorMessage": {
+                "type": "Price must be number"
+            }
+        }
+    },
+    "additionalProperties": false,
+    "errorMessage": {
+        "type": "The request should be an object",
+        "required": {
+            "quantity": "Quantity is required!",
+            "price": "Price is required!"
+        }
+    }
+}

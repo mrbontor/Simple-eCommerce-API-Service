@@ -1,0 +1,35 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "required": ["idProduct", "quantity", "price"],
+    "properties": {
+        "idProduct": {
+            "type": "number",
+            "errorMessage": {
+                "type": "Product Id must be number"
+            }
+        },
+        "quantity": {
+            "type": "number",
+            "errorMessage": {
+                "type": "Quantity must be number"
+            }
+        },
+        "price": {
+            "type": "number",
+            "default": 0,
+            "errorMessage": {
+                "type": "Price must be number"
+            }
+        }
+    },
+    "additionalProperties": false,
+    "errorMessage": {
+        "type": "The request should be an object",
+        "required": {
+            "idProduct": "Product Id is required!",
+            "quantity": "Quantity is required!",
+            "price": "Price is required!"
+        }
+    }
+}

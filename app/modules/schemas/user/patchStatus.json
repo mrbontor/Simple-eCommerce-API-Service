@@ -1,0 +1,20 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "required": ["isActive"],
+    "properties": {
+        "isActive": {
+            "type": "boolean",
+            "errorMessage": {
+                "type": "isActive should be in boolean format"
+            }
+        }
+    },
+    "additionalProperties": false,
+    "errorMessage": {
+        "type": "The request should be an object",
+        "required": {
+            "isActive": "isActive is required"
+        }
+    }
+}

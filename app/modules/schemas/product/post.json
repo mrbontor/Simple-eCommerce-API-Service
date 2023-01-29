@@ -1,0 +1,36 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "required": ["name", "status"],
+    "properties": {
+        "name": {
+            "type": "string",
+            "minLength": 3,
+            "errorMessage": {
+                "minLength": "Name should be greater than 3 characters!",
+                "type": "Name must be string"
+            }
+        },
+        "description": {
+            "type": ["string", "null"],
+            "default": null,
+            "errorMessage": {
+                "type": "Description must be string or set to null"
+            }
+        },
+        "status": {
+            "type": "boolean",
+            "enum": [true, false],
+            "default": true
+        }
+    },
+    "additionalProperties": false,
+    "errorMessage": {
+        "type": "Request should be an object!",
+        "additionalProperties": "Field(s) is not allowed!",
+        "required": {
+            "name": "Name is required!",
+            "status": "Status is required!"
+        }
+    }
+}

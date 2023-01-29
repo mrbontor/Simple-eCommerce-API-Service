@@ -1,0 +1,63 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "required": ["type"],
+    "properties": {
+        "type": {
+            "type": "string",
+            "enum": ["quantity", "price"],
+            "errorMessage": {
+                "type": "Type must be number",
+                "enum": "Please select at least one of the options"
+            }
+        }
+    },
+    "if": {
+        "properties": {
+            "type": { "enum": ["quantity"] }
+        },
+        "errorMessage": {
+            "if": "If type = quantity, add field quantity"
+        }
+    },
+    "then": {
+        "properties": {
+            "quantity": {
+                "type": "number",
+                "errorMessage": {
+                    "type": "Quantity must be number"
+                }
+            }
+        },
+        "required": ["quantity"],
+        "errorMessage": {
+            "required": {
+                "quantity": "Quantity is required!"
+            }
+        }
+    },
+    "else": {
+        "properties": {
+            "price": {
+                "type": "number",
+                "errorMessage": {
+                    "type": "Price must be number"
+                }
+            }
+        },
+        "required": ["price"],
+        "errorMessage": {
+            "required": {
+                "price": "Price is required!"
+            }
+        }
+    },
+
+    "errorMessage": {
+        "type": "The request should be an object",
+        "required": {
+            "type": "Type is required!"
+        },
+        "if": "If type = quantity, add a quantity field with a number and vice versa 😉"
+    }
+}

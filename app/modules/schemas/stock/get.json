@@ -1,0 +1,24 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "type": "object",
+    "required": [],
+    "properties": {
+        "quantityFrom": {
+            "type": "string",
+            "format": "numberString",
+            "errorMessage": {
+                "format": "Quantity From must be string number",
+                "type": "Quantity From must be string number"
+            }
+        },
+        "quantityTo": {
+            "type": "string",
+            "format": "numberString",
+            "errorMessage": {
+                "format": "Quantity To must be string number",
+                "type": "Quantity To must be string number"
+            }
+        }
+    },
+    "additionalProperties": false
+}
